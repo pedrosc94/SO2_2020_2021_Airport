@@ -12,7 +12,6 @@ TCHAR((*ptrMemoria)[BUFFERS][BUFFERSIZE]);
 Movimento* DataCliente;
 
 
-
 DWORD verificaJogador(TCHAR* strJogador)
 {
 
