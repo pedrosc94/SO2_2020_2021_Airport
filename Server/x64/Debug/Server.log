@@ -1,0 +1,22 @@
+﻿  Server.c
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.h(22,1): warning C4005: 'BUFFERSIZE': macro redefinition
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.h(18): message : see previous definition of 'BUFFERSIZE'
+C:\Users\pedro\Downloads\2021_TP_SO2\Server\Server.c(23,23): warning C4133: 'function': incompatible types - from 'TCHAR *' to 'const char *'
+C:\Users\pedro\Downloads\2021_TP_SO2\Server\Server.c(24,3): warning C4033: 'verificaJogador' must return a value
+C:\Users\pedro\Downloads\2021_TP_SO2\Server\Server.c(19,8): warning C4101: 'auxJogador': unreferenced local variable
+C:\Users\pedro\Downloads\2021_TP_SO2\Server\Server.c(21,9): warning C4101: 'token': unreferenced local variable
+C:\Users\pedro\Downloads\2021_TP_SO2\Server\Server.c(21,21): warning C4101: 'nextToken': unreferenced local variable
+C:\Users\pedro\Downloads\2021_TP_SO2\Server\Server.c(110,63): warning C4047: 'function': 'const wchar_t *const ' differs in levels of indirection from 'TCHAR (*)[1000]'
+C:\Users\pedro\Downloads\2021_TP_SO2\Server\Server.c(110,56): warning C4024: 'swprintf_s': different types for formal and actual parameter 3
+C:\Users\pedro\Downloads\2021_TP_SO2\Server\Server.c(117,63): warning C4047: 'function': 'const wchar_t *const ' differs in levels of indirection from 'TCHAR (*)[1000]'
+C:\Users\pedro\Downloads\2021_TP_SO2\Server\Server.c(117,56): warning C4024: 'swprintf_s': different types for formal and actual parameter 3
+C:\Users\pedro\Downloads\2021_TP_SO2\Server\Server.c(165,6): warning C4101: 'tempo': unreferenced local variable
+C:\Users\pedro\Downloads\2021_TP_SO2\Server\Server.c(165,13): warning C4101: 'id_taxi': unreferenced local variable
+C:\Users\pedro\Downloads\2021_TP_SO2\Server\Server.c(203,9): warning C4101: 'hTHREAD': unreferenced local variable
+C:\Users\pedro\Downloads\2021_TP_SO2\Server\Server.c(200,11): warning C4101: 'ThreadId': unreferenced local variable
+C:\Users\pedro\Downloads\2021_TP_SO2\Server\Server.c(203,18): warning C4101: 'hTHREAD_2': unreferenced local variable
+C:\Users\pedro\Downloads\2021_TP_SO2\Server\Server.c(200,21): warning C4101: 'valor': unreferenced local variable
+C:\Users\pedro\Downloads\2021_TP_SO2\Server\Server.c(200,8): warning C4101: 'i': unreferenced local variable
+C:\Users\pedro\Downloads\2021_TP_SO2\Server\Server.c(204,9): warning C4101: 'hFileMap': unreferenced local variable
+C:\Users\pedro\Downloads\2021_TP_SO2\Server\Server.c(38): warning C4715: 'verificaJogador': not all control paths return a value
+  Server.vcxproj -> C:\Users\pedro\Downloads\2021_TP_SO2\x64\Debug\Server.exe

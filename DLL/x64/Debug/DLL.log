@@ -1,0 +1,31 @@
+﻿  pch.c
+  DLL.c
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.h(22,1): warning C4005: 'BUFFERSIZE': macro redefinition
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.h(18): message : see previous definition of 'BUFFERSIZE'
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.c(44,50): warning C4047: 'function': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.c(44,46): warning C4024: 'RegSetValueExW': different types for formal and actual parameter 3
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.c(45,54): warning C4047: 'function': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.c(45,50): warning C4024: 'RegSetValueExW': different types for formal and actual parameter 3
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.c(17,24): warning C4101: 'Aipor_amount': unreferenced local variable
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.c(18,6): warning C4101: 'queAconteceu': unreferenced local variable
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.c(15,15): warning C4101: 'h_second_Key': unreferenced local variable
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.c(17,9): warning C4101: 'Planes_amount': unreferenced local variable
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.c(101,69): warning C4133: 'function': incompatible types - from 'int *' to 'LPBYTE'
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.c(81,9): warning C4101: 'hMapFile': unreferenced local variable
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.c(153,77): warning C4133: 'function': incompatible types - from 'int *' to 'LPBYTE'
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.c(133,9): warning C4101: 'hMapFile': unreferenced local variable
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.c(127,7): warning C4101: 'numero_de_avioes': unreferenced local variable
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.c(197,3): warning C4033: 'recebeDados' must return a value
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.c(204,3): warning C4033: 'recebeDados' must return a value
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.c(216,9): warning C4013: 'system' undefined; assuming extern returning int
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.c(188,9): warning C4101: 'token': unreferenced local variable
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.c(261,34): warning C4477: 'swprintf_s' : format string '%d' requires an argument of type 'int', but variadic argument 2 has type 'int *'
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.c(261,34): warning C4313: 'swprintf_s': '%d' in format string conflicts with argument 2 of type 'int *'
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.c(264,51): warning C4047: 'function': 'const wchar_t *const ' differs in levels of indirection from 'TCHAR (*)[1000]'
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.c(264,44): warning C4024: 'swprintf_s': different types for formal and actual parameter 3
+  dllmain.c
+  Generating Code...
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.c(226): warning C4715: 'recebeDados': not all control paths return a value
+C:\Users\pedro\Downloads\2021_TP_SO2\DLL\DLL.c(278): warning C4715: 'login': not all control paths return a value
+     Creating library C:\Users\pedro\Downloads\2021_TP_SO2\x64\Debug\DLL.lib and object C:\Users\pedro\Downloads\2021_TP_SO2\x64\Debug\DLL.exp
+  DLL.vcxproj -> C:\Users\pedro\Downloads\2021_TP_SO2\x64\Debug\DLL.dll

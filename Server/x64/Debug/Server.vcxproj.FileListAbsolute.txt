@@ -1,0 +1,2 @@
+C:\Users\pedro\Downloads\TP_V3\Server\x64\Debug\Server.exe
+C:\Users\pedro\Downloads\2021_TP_SO2\Server\x64\Debug\Server.exe
