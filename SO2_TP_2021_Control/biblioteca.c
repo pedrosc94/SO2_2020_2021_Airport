@@ -3,13 +3,6 @@
 #define NameSize 15
 #include "biblioteca.h"
 
-<<<<<<< Updated upstream
-Request a;
-Aviao airplane;
-Movimento* DataCliente, aux;
-
-TCHAR((*ptrMemoria)[BUFFERS][BUFFERSIZE]);
-=======
 int convertTimeToSec(SYSTEMTIME time) {
 	int tempo = time.wSecond + (time.wMinute * 60) + (time.wHour * 60 * 60);
 	return tempo;
@@ -20,7 +13,6 @@ int get_time() {
 	_tprintf(TEXT("\nThe system time is: %02d:%02d:%02d\n"), st.wHour, st.wMinute, st.wSecond);
 	return convertTimeToSec(st);
 }
->>>>>>> Stashed changes
 
 
 int Boot() { // check & create the Regystrkeys for the maximum number of planes and airports
@@ -40,10 +32,12 @@ int Boot() { // check & create the Regystrkeys for the maximum number of planes 
 	}
 
 	if (RegCreateKeyEx(HKEY_CURRENT_USER, TEXT("Software\\Test"), 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, &regFlag) != ERROR_SUCCESS)
+
 	{
 		_tprintf(TEXT("[REGISTRY] Error Creating Registry Key (%d)\n"), GetLastError());
 		return 1;
 	}
+
 	_tprintf(TEXT("[REGISTRY] Registry Created Software\\Test\n"));
 
 	if (regFlag == REG_CREATED_NEW_KEY)

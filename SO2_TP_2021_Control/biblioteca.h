@@ -39,6 +39,9 @@ typedef struct {
 	int direction; //direcao movimento   1 - cima direita , 2 - baixo direita, 3 - esquerda baixo, 4 - cima esquerda
 	int speed; //velocidade di avuai
 	int id; //id do ultimo aviao
+	bool sair; // ADICIONEI
+	bool chegou_ao_destino;
+	int tempo;
 } Movimento;
 
 typedef struct {
@@ -53,17 +56,11 @@ typedef struct {
 
 	int aviao_Id; // 
 	int capacidade;
-	int speed; // speef of the plain
-	int direcao; //direcao movimento   1 - cima direita , 2 - baixo direita, 3 - esquerda baixo, 4 - cima esquerda
 	TCHAR aviao_name[BUFFERSIZE]; // name of the Passager
 	TCHAR original_aeorporto[BUFFERSIZE];
 	TCHAR next_destionation[BUFFERSIZE];
-<<<<<<< Updated upstream
-
-=======
 	int  tempo_de_espera;
 	int tempo;
->>>>>>> Stashed changes
 	bool ground; // if is currently grounded (or flying)
 	bool exit; // pilots ends
 	Passager* passager;// passagers in the plain
@@ -77,8 +74,6 @@ typedef struct controller {
 	Aviao* aviao;
 } Controller;
 
-<<<<<<< Updated upstream
-=======
 typedef struct
 {
 	bool autenticado;
@@ -92,23 +87,11 @@ typedef struct
 	int tempo_de_aguardar;
 	int estado_piloto;
 }Autentication;
->>>>>>> Stashed changes
 
 typedef struct
 {
 	int Id; // aviao id
 	int resposta; // tipo de pedido
-<<<<<<< Updated upstream
-	int tipo;
-	Aviao aviao[10];
-} Request;
-
-typedef struct
-{
-	Request requests[BUFFERS];
-	int posRead, posWrite;
-} RequestGeral;
-=======
 	int tipo; // 1- aceite, 2 - nao aceite por motivos de autenticacaoo, 3- o controlador nao permite mais avioes por parte do admin
 	Autentication autentication;
 	Aviao aviao;
@@ -117,37 +100,34 @@ typedef struct
 
 } Request;
 
->>>>>>> Stashed changes
 
 //
 Request reqSair;
-Request* reqSairPipe;
 HANDLE PodeEscrever; // semaforo
 HANDLE PodeLer; // semaforo
 HANDLE PodeLerResposta;
-RequestGeral* ptrMemoriaServer;
 
 // server
 HANDLE PodeEscreverInfo;
 HANDLE PodeLerInfo;
-HANDLE ficheiro;
-HANDLE pedido;
 HANDLE PodeLerRespostaServer;
 HANDLE PodeEntrar;
 HANDLE hEvent;
-HANDLE hPipeServer;
 HANDLE hTerminar;
 HANDLE htDadosJogo;
-HANDLE htPipesRemotos;
 HANDLE hEventData;
 HANDLE hThreadDados;
 HANDLE hEventDivulga;
 HANDLE hEventDados;
-HANDLE hBrinde;
-RequestGeral* PtrMemoria;
+HANDLE hmap;
+HANDLE Semoforo_max_planes; // ontrola o max de avioes
+Request* PtrMemoria;
+
 
 HANDLE Semaforo_PlanesMax; //Semaforo que controla o max de avioes.
+
 Aviao aviao[max_planes];
+Aeroporto aeroporto[max_aeroports];
 
 
 //Func3
@@ -155,12 +135,8 @@ Aviao aviao[max_planes];
 int Boot();
 int num_de_avioes();
 int num_aeroporto();
-<<<<<<< Updated upstream
-DWORD login(Request a, int maximo_de_avioes);
-=======
 Autentication login(Request a, int maximo_de_avioes);
 int convertTimeToSec(SYSTEMTIME time);
 int get_time();
->>>>>>> Stashed changes
 
 #endif

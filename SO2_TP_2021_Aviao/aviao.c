@@ -4,13 +4,8 @@
 #include <fcntl.h>
 #include <io.h>
 #include "../SO2_TP_2021_Control/biblioteca.h"
-<<<<<<< Updated upstream
-Movimento* ptr_movimento;
-
-TCHAR((*ptrMemoria)[BUFFERS][BUFFERSIZE]);
-=======
 #include "../SO2_TP_DLL_2021/SO2_TP_DLL_2021.h"
-Movimento* ptr_movimento, *ptr_movimento_ejetar;
+Movimento* ptr_movimento, * ptr_movimento_ejetar;
 //int terminar = 0;
 //  Iniciar viagem (pode iniciar viagem sem embarcar ninguém).
 // mandar outro destino quando chega ?
@@ -20,65 +15,25 @@ HANDLE hMutex;
 
 //int estado_piloto = 0;
 int tmpx = 1, flag = 1;
->>>>>>> Stashed changes
 
-int terminar = 0;
+typedef int(__stdcall* doFunc)(int);
 
-DWORD envia_movimento()
+DWORD envia_movimento(void* aux)
 {
-<<<<<<< Updated upstream
-	HANDLE PodeEscrever = CreateSemaphore(NULL, BUFFERS, BUFFERS, TEXT("Semáforo Pode Escrever Info"));
-	HANDLE PodeLer = CreateSemaphore(NULL, 0, BUFFERS, TEXT("Semáforo Pode Ler Info"));
-
-	if (PodeEscrever == NULL || PodeLer == NULL)
-	{
-		_tprintf(TEXT("[Erro] Criação de objectos do Windows(%d)\n"), GetLastError());
-		return -1;
-	}
-
-	HANDLE hT = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(Movimento), TEXT("MovementMemory"));
-	if (hT == NULL)
-	{
-		_tprintf(TEXT("[Erro] Criação FileMappingMemory do Windows(%d)\n"), GetLastError());
-		return -1;
-	}
-
-	ptr_movimento = (Movimento *)MapViewOfFile(hT, FILE_MAP_WRITE | FILE_MAP_READ, 0, 0, sizeof(Movimento));
-	if (ptr_movimento == NULL)
-	{
-		_tprintf(TEXT("[Erro] Mapeamento da memória partilhada(%d)\n"), GetLastError());
-		return -1;
-	}
-
-	ptr_movimento->id = 666;
-	ptr_movimento->direction = 2;
-	ptr_movimento->x = 55;
-	ptr_movimento->y = 77;
-
-	WaitForSingleObject(PodeEscrever, INFINITE);
-	ReleaseSemaphore(PodeLer, 1, NULL);
-	//_tprintf(TEXT("Cliente(%s)\n"), (*PtrMemoria)[0]);
-	//Sleep(97000);
-	UnmapViewOfFile(ptr_movimento);
-	CloseHandle(PodeEscrever);
-	CloseHandle(PodeLer);
-	CloseHandle(hT);
-}
-=======
 	Autentication* auxs = (Autentication*)aux;
 
 	//VARS PARA USAR NA DLL
-	int cur_x, cur_y, flag=0;
+	int cur_x, cur_y, flag = 0;
 	int final_dest_x, final_dest_y;
 	int next_x, next_y;
 	int* pnext_x = &next_x;
 	int* pnext_y = &next_y;
 	int tmp = auxs->error;
-	cur_x =  auxs->AEROPORTO_ORIGEM_X; //AeroportoX 
+	cur_x = auxs->AEROPORTO_ORIGEM_X; //AeroportoX 
 	cur_y = auxs->AEROPORTO_ORIGEM_Y;; //AeroportoY
 	final_dest_x = auxs->AEROPORTO_DESTINO_X; //AeroportoFinalX
 	final_dest_y = auxs->AEROPORTO_DESTINO_Y; //AeroportoY
-	DWORD  dwExitCode=0;
+	DWORD  dwExitCode = 0;
 
 	//Sleep(2000);
 
@@ -95,7 +50,7 @@ DWORD envia_movimento()
 	}
 	_tprintf(TEXT("[a iniciar a viagem \n"));
 
-	while (flag ==1)
+	while (flag == 1)
 	{
 
 		HANDLE PodeEscrever = CreateSemaphore(NULL, BUFFERS, BUFFERS, TEXT("Semáforo Pode Escrever Info"));
@@ -123,7 +78,7 @@ DWORD envia_movimento()
 			_tprintf(TEXT("[Erro] Mapeamento da memória partilhada(%d)\n"), GetLastError());
 			return -1;
 		}
-	
+
 		WaitForSingleObject(PodeEscrever, INFINITE);
 
 		if (auxs->estado_piloto == 0) // a voar
@@ -138,7 +93,7 @@ DWORD envia_movimento()
 				_tprintf(TEXT("\n[DEBUG] Avião chegou ao destino!\n"));
 				ptr_movimento->chegou_ao_destino = true;
 				flag = 0;
-				
+
 				TerminateThread(auxs->id_of_other_thread, dwExitCode);
 				_tprintf(TEXT("\n[DEBUG]dwExitCode %d!\n"), dwExitCode);
 
@@ -148,7 +103,7 @@ DWORD envia_movimento()
 				_tprintf(TEXT("\n[DEBUG] Next position is X:%d Y:%d"), next_x, next_y);
 				cur_x = next_x;
 				cur_y = next_y;
-			//	Sleep(10000);
+				//	Sleep(10000);
 			}
 
 			if (f == 2) {
@@ -165,17 +120,17 @@ DWORD envia_movimento()
 			ptr_movimento->sair = true;
 			flag = 0;
 		}
-			ReleaseSemaphore(PodeLer, 1, NULL);
-	//		ReleaseMutex(hMutex);
+		ReleaseSemaphore(PodeLer, 1, NULL);
+		//		ReleaseMutex(hMutex);
 
 
-	//		if (flag == 0) // CASO AVIAO CHEGUE AO DESTINO SAI
-	//		{
-			//	tmpx = 0;
-			//	_tprintf(TEXT(" ESTADO DO estado_piloto E DE 0 !!!!!! \n"));
-			//	auxs->estado_piloto = 1;
-			//	}
-	
+		//		if (flag == 0) // CASO AVIAO CHEGUE AO DESTINO SAI
+		//		{
+				//	tmpx = 0;
+				//	_tprintf(TEXT(" ESTADO DO estado_piloto E DE 0 !!!!!! \n"));
+				//	auxs->estado_piloto = 1;
+				//	}
+
 
 		ReleaseMutex(hMutex);
 		UnmapViewOfFile(ptr_movimento);
@@ -194,7 +149,7 @@ DWORD timer(void* param)
 
 	Autentication* dados = (Autentication*)param;
 
- 	_tprintf(TEXT("\n \n \n WDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD tempo de espera para voar e de %d: "), dados->tempo_de_aguardar);
+	_tprintf(TEXT("\n \n \n WDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD tempo de espera para voar e de %d: "), dados->tempo_de_aguardar);
 	WaitForSingleObject(hMutex, INFINITE);
 
 	if (dados->terminar == 1) // verifico se o piloto escreveu antes de sequer a contagem 
@@ -207,23 +162,22 @@ DWORD timer(void* param)
 	_tprintf(TEXT("\n \n |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\AC DORMIR E ||||| "));
 
 	Sleep(num);
-/*	int x = 0, antes =0, depois, reach;
-	antes = get_time();
-	while (x==0)
-	{
-		depois =  get_time();
-		reach = depois - antes;
-		if (reach >= dados->tempo_de_aguardar) {
-			x = 1;
+	/*	int x = 0, antes =0, depois, reach;
+		antes = get_time();
+		while (x==0)
+		{
+			depois =  get_time();
+			reach = depois - antes;
+			if (reach >= dados->tempo_de_aguardar) {
+				x = 1;
+			}
 		}
-	}
-*/
-//	WaitForSingleObject(hMutexTimer, INFINITE);
+	*/
+	//	WaitForSingleObject(hMutexTimer, INFINITE);
 	WaitForSingleObject(hMutex, INFINITE);
 	if (dados->terminar == 1)
 	{
 		_tprintf(TEXT("\n \n +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ \ACORDARAM ME ||||| "));
->>>>>>> Stashed changes
 
 		return 0;
 	}
@@ -238,16 +192,8 @@ DWORD timer(void* param)
 
 }
 
-DWORD login(Request avioneta, int maximo_avioes) //Novo aviao
+Autentication login(Request avioneta, int maximo_avioes) //Novo aviao
 {
-<<<<<<< Updated upstream
-	_tprintf(TEXT("[INFO] Process ID: %d (avioneta.Id)\n"), avioneta.Id);
-	_tprintf(TEXT("[INFO]   Avião ID: %d\n"), avioneta.aviao->aviao_Id);
-	_tprintf(TEXT("[INFO] Nome Avião: %s\n"), avioneta.aviao->aviao_name);
-
-	HANDLE PodeEscrever = CreateSemaphore(NULL, BUFFERS, BUFFERS, TEXT("Semáforo Pode Escrever Info"));
-	HANDLE PodeLer = CreateSemaphore(NULL, 0, BUFFERS, TEXT("Semáforo Pode Ler Info"));
-=======
 	Autentication tmp;
 	DWORD result = 1;
 
@@ -259,50 +205,32 @@ DWORD login(Request avioneta, int maximo_avioes) //Novo aviao
 //	_tprintf(TEXT("[INFO]   Avião ID: %d\n"), avioneta.aviao.aviao_Id);
 //	_tprintf(TEXT("[INFO] Nome Avião: %s\n"), avioneta.aviao.aviao_name);
 
->>>>>>> Stashed changes
 	//	_AviaoMax = CreateSemaphore(NULL, 6, 6, TEXT("TaxiMax"));
-
 
 	if (PodeEscrever == NULL || PodeLer == NULL)
 	{
 		_tprintf(TEXT("[Erro] Criação de objectos do Windows(%d)\n"), GetLastError());
-		return -1;
+		tmp.error = 1;
 	}
 
-	TCHAR(*PtrMemoria)[BUFFERS][BUFFERSIZE];
-
-	HANDLE hT = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(TCHAR[BUFFERS][BUFFERSIZE]), TEXT("SharedMemory"));
+	HANDLE hT = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(Request), TEXT("SharedMemory"));
 	if (hT == NULL)
 	{
 		_tprintf(TEXT("[Erro] Criação FileMappingMemory do Windows(%d)\n"), GetLastError());
-		return -1;
+		tmp.error = 1;
 	}
 
-	PtrMemoria = (TCHAR(*)[BUFFERS][BUFFERSIZE])MapViewOfFile(hT, FILE_MAP_WRITE | FILE_MAP_READ, 0, 0, sizeof(TCHAR[BUFFERS][BUFFERSIZE]));
+	PtrMemoria = (Request*)MapViewOfFile(hT, FILE_MAP_WRITE | FILE_MAP_READ, 0, 0, sizeof(Request));
 	if (PtrMemoria == NULL)
 	{
 		_tprintf(TEXT("[Erro] Mapeamento da memória partilhada(%d)\n"), GetLastError());
-		return -1;
+		tmp.error = 1;
 	}
 
-<<<<<<< Updated upstream
-	TCHAR buffer[BUFFERSIZE];
-	_stprintf_s(buffer, _countof(buffer), TEXT("%s %d"), avioneta.aviao->aviao_name, avioneta.Id); // TODO MUDAR O NOME //removed '&'
-	_tprintf(TEXT("[SENDING] A registar o Avião em Controlador: %s\n"), buffer);
-=======
 	//	_tprintf(TEXT("[SENDING] A registar o Avião em Controlador: %s\n"), avioneta.aviao.aviao_name);
->>>>>>> Stashed changes
 
 	WaitForSingleObject(PodeEscrever, INFINITE);
-	_stprintf_s((*PtrMemoria)[0], _countof(buffer), &buffer);
 
-<<<<<<< Updated upstream
-	ReleaseSemaphore(PodeLer, 1, NULL);
-	Sleep(1000);
-
-	//_tprintf(TEXT("Cliente(%s)\n"), (*PtrMemoria)[0]);
-	//Sleep(97000);
-=======
 	//	wcscpy(PtrMemoria->aviao->aviao_name, avioneta.aviao->aviao_name);
 	PtrMemoria->aviao.aviao_Id = avioneta.aviao.aviao_Id;
 	PtrMemoria->aviao.capacidade = avioneta.aviao.capacidade;
@@ -355,28 +283,22 @@ DWORD login(Request avioneta, int maximo_avioes) //Novo aviao
 
 	tmp.autenticado = true;
 	tmp.server_disable_comms = false;
->>>>>>> Stashed changes
 
 	UnmapViewOfFile(PtrMemoria);
 	CloseHandle(PodeEscrever);
 	CloseHandle(PodeLer);
 	CloseHandle(hT);
-<<<<<<< Updated upstream
-=======
 	return tmp;
->>>>>>> Stashed changes
 }
 
 
 
-<<<<<<< Updated upstream
-=======
 DWORD WINAPI PilotoCMD(void* param)
 {
 	Autentication* dados = (Autentication*)param;
 
 	TCHAR input[100];
-	int tempo, id_taxi, flag =0;
+	int tempo, id_taxi, flag = 0;
 	DWORD  dwExitCode = 0;
 
 	do {
@@ -412,8 +334,8 @@ DWORD WINAPI PilotoCMD(void* param)
 
 			}
 
-		//	WaitForSingleObject(hMutexTimer, INFINITE);
-		//	ReleaseMutex(hMutexTimer);
+			//	WaitForSingleObject(hMutexTimer, INFINITE);
+			//	ReleaseMutex(hMutexTimer);
 			_tprintf(TEXT("\n[PILOTO ESCREVA 2 2 2: "));
 			ReleaseMutex(hMutex);
 
@@ -434,11 +356,11 @@ DWORD WINAPI PilotoCMD(void* param)
 		_tprintf(TEXT("\n[.:.]"));
 		_tprintf(TEXT("\n[ :.]"));
 		_tprintf(TEXT("\n[ .]"));
-	//	_tprintf(TEXT("\n »»»»»ptrMemoria->permite_entrada %d »»»»» \n"), flag);
+		//	_tprintf(TEXT("\n »»»»»ptrMemoria->permite_entrada %d »»»»» \n"), flag);
 
-	//	ReleaseMutex(hMutex);
+		//	ReleaseMutex(hMutex);
 
-	} while(flag == 0);
+	} while (flag == 0);
 
 	_tprintf(TEXT("\n \\\\\\\\\\\\\ aaaaaaaaIT \\\\\\)\n"));
 
@@ -448,11 +370,10 @@ DWORD WINAPI PilotoCMD(void* param)
 //		ReleaseMutex(hMutex);
 	_tprintf(TEXT("\n \\\\\\\\\\\\\ Obbbbbbbbbbbbbbbbbbbbbbbff \\\\\\)\n"));
 
-//	system("cls");
+	//	system("cls");
 	return 0;
 }
 
->>>>>>> Stashed changes
 
 int _tmain(int argc, TCHAR* argv[]) {
 #ifdef UNICODE
@@ -461,69 +382,57 @@ int _tmain(int argc, TCHAR* argv[]) {
 	_Check_return_ _setmode(_fileno(stderr), _O_WTEXT);
 #endif
 
-	int x;
+	int x, aviao_valor_registry = 0;
 	//	WaitForSingleObject(Semaforo_PlanesMax, INFINITE);
-	int aux, response = 0;
+	int  response = 0, volante_terminal;
+	Autentication aux;
 	boot_struct boot_values;
 	boot_values._max_planes = num_de_avioes();
 	boot_values._max_aeroports = num_aeroporto();
-<<<<<<< Updated upstream
-=======
 	HANDLE  handle_volante_terminal;
->>>>>>> Stashed changes
 
 	if (response == 0 && boot_values._max_aeroports != 0 && boot_values._max_planes != 0) {
 
 		Request novo_pedido;
-		novo_pedido.Id = GetCurrentThreadId();
-		novo_pedido.aviao->aviao_Id = GetCurrentThreadId();
-		novo_pedido.Id = novo_pedido.aviao->aviao_Id;
+		novo_pedido.Id = GetCurrentProcessId();
+		novo_pedido.aviao.aviao_Id = novo_pedido.Id;
+		_tprintf(TEXT("aux.error = novo_pedido.aviao.aviao_Id; %d.\n"), novo_pedido.aviao.aviao_Id);
 
+		Semoforo_max_planes = CreateSemaphore(NULL, boot_values._max_planes, boot_values._max_planes, TEXT("SO2_SEM"));
+
+		if (Semoforo_max_planes == NULL) {
+
+			_tprintf(TEXT("Erro no CreateSemaphore.\n"));
+			return 1;
+
+		}
+
+		_tprintf(TEXT("A aguardar por uma vaga	\n"));
+		WaitForSingleObject(Semoforo_max_planes, INFINITE);
 		_tprintf(TEXT("****** Bem vindo piloto ******\n"));
 
 		//espera ate o haver vagas para a criacao de avioes e depois entr
 		//WaitForSingleObject(_AviaoMax, INFINITE);
 
 		_tprintf(TEXT("\nDigite a capacidade max:"));
-		_tscanf_s(TEXT("%99d"), &novo_pedido.aviao->capacidade);
+		_tscanf_s(TEXT("%99d"), &novo_pedido.aviao.capacidade);
 
-		_tprintf(TEXT("\nDigite a velocidade:"));
-		_tscanf_s(TEXT("%99d"), &novo_pedido.aviao->speed);
-
-<<<<<<< Updated upstream
-		//_tprintf(text("\n[warning] - numero invalido, tente escolher um numero inteiro nao nulo\n"));
-=======
 		_tprintf(TEXT("\nDigite o tempo de espera por passageiros:"));
 		_tscanf_s(TEXT("%99d"), &novo_pedido.aviao.tempo_de_espera);
-		novo_pedido.aviao.tempo_de_espera = novo_pedido.aviao.tempo_de_espera * 10*10*10;
+		novo_pedido.aviao.tempo_de_espera = novo_pedido.aviao.tempo_de_espera * 10 * 10 * 10;
 		_tprintf(TEXT("[DEBUG] novo_pedido.aviao.tempo_de_espera %d )\n"), novo_pedido.aviao.tempo_de_espera);
->>>>>>> Stashed changes
 
 		_tprintf(TEXT("\nDigite o nome do aviao:"));
-		_tscanf_s(TEXT("%99s"), novo_pedido.aviao->aviao_name, TAM);
+		_tscanf_s(TEXT("%99s"), novo_pedido.aviao.aviao_name, TAM);
 
 		_tprintf(TEXT("\nDigite o aeroporto destino:"));
-		_tscanf_s(TEXT("%99s"), novo_pedido.aviao->next_destionation, TAM);
+		_tscanf_s(TEXT("%99s"), novo_pedido.aviao.next_destionation, TAM);
 
 		_tprintf(TEXT("\nDigite o nome do aeroporto:"));
-		_tscanf_s(TEXT("%99s"), novo_pedido.aviao->original_aeorporto, TAM);
+		_tscanf_s(TEXT("%99s"), novo_pedido.aviao.original_aeorporto, TAM);
 
-		//
-		novo_pedido.Id = GetCurrentProcessId();
 		_tprintf(TEXT("[DEBUG] Process ID: %d (novo_pedido.Id)\n"), novo_pedido.Id);
 
-<<<<<<< Updated upstream
-		novo_pedido.aviao->ground = true;
-		novo_pedido.aviao->exit = false;
-
-		aux = login(novo_pedido, boot_values._max_planes);
-
-		
-		if (aux == 1)
-		{
-			_tprintf(TEXT("[SENDING] Sucess!\n"));
-		//	HANDLE htDadosJogo = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)envia_movimento, NULL, 0, NULL);
-=======
 		novo_pedido.aviao.ground = true;
 		novo_pedido.aviao.exit = false;
 		novo_pedido.autentication.AEROPORTO_DESTINO_X = 0;
@@ -542,14 +451,14 @@ int _tmain(int argc, TCHAR* argv[]) {
 			return 0;
 
 		}
-	//	hMutexTimer = CreateMutex(NULL, FALSE, TEXT("ParaTempo"));
-	//	if (hMutexTimer == NULL)
-	//	{
-	//		_tprintf(TEXT("\ERRO na criacao do mutex"));
-	//		return 0;
-	//	}
+		//	hMutexTimer = CreateMutex(NULL, FALSE, TEXT("ParaTempo"));
+		//	if (hMutexTimer == NULL)
+		//	{
+		//		_tprintf(TEXT("\ERRO na criacao do mutex"));
+		//		return 0;
+		//	}
 
-		if (aux.autenticado == true )
+		if (aux.autenticado == true)
 		{
 			aux.error = novo_pedido.aviao.aviao_Id;
 
@@ -561,33 +470,9 @@ int _tmain(int argc, TCHAR* argv[]) {
 			aux.id_of_other_thread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)PilotoCMD, &aux, 0, NULL);
 
 
->>>>>>> Stashed changes
 			_tprintf(TEXT("[SENDING] Reporting my Info to Control!\n"));
-			envia_movimento();
-			_tprintf(TEXT("[DEBUG] Terminated envia_movimento()!\n"));
-			
-			//	if (recebeTecla() == 1)
-		//	{
-		//		system("cls");
 
-		//		_tprintf(TEXT("\nAcabou!\n"));
 
-<<<<<<< Updated upstream
-
-				// 
-	//			Sleep(1000);
-				//			return 0;
-				//		}
-		}
-		//	else
-//			//			_tprintf(TEXT("\nNão passou!\n"));
-			//			Sleep(1000);
-			//			return 0;
-			//		}
-
-	//realse um dos semaforos para poder entrar um novo aviao.
-	//	releasesemaphore(_aviaomax, 1, null);
-=======
 			WaitForSingleObject(aux.paraterminar_o_sleep, INFINITE);
 			_tprintf(TEXT("[DEBUG] a ir para os  envia_movimento()!\n"));
 
@@ -599,12 +484,10 @@ int _tmain(int argc, TCHAR* argv[]) {
 			_tprintf(TEXT("[DEBUG] Terminated envia_movimento()!\n"));
 			// este qwe
 			CloseHandle(hMutex);
-		//	CloseHandle(hMutexTimer);
+			//	CloseHandle(hMutexTimer);
 
 		}
 		Sleep(9000);
->>>>>>> Stashed changes
 	}
-	_getch();
 	return 0;
 }
