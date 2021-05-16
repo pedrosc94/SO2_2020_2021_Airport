@@ -64,7 +64,6 @@ typedef struct {
 	bool ground; // if is currently grounded (or flying)
 	bool exit; // pilots ends
 	Passager* passager;// passagers in the plain
-	int tempo;
 
 } Aviao;
 

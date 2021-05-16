@@ -24,26 +24,6 @@ void atualizaHorasUltimaCom(int id) {
 
 }
 
-
-void atualizaHorasUltimaCom(int id) {
-	for (int i = 0; i < max_planes; i++) {
-		if (aviao[i].aviao_Id == id) {
-			aviao[i].tempo = get_time();
-			_tprintf(TEXT("\n[DEBUG]Atualizei as horas da ultima comunicação com valor: %d"), aviao[i].tempo);
-			Sleep(2000);
-		}
-	}
-
-}
-
-int get_time() {
-	SYSTEMTIME st;
-	GetSystemTime(&st);
-	_tprintf(TEXT("\nThe system time is: %02d:%02d:%02d\n"), st.wHour, st.wMinute, st.wSecond);
-	return convertTimeToSec(st);
-}
-
-
 int initAviaoArr() { // depois mandaro numero de max_planes que ocorre pela leitura da regkey
 	for (int i = 0; i < max_planes; i++) {
 		aviao[i].aviao_Id = 0;
